@@ -6,7 +6,5 @@ body {
 }
 
 #pong {
-    width: 800px;
-    height: 600px;
-    background: #000;
+    background: black;
 }
