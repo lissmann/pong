@@ -32,8 +32,6 @@ export default class Drawable {
 
     set x(x) {
         this.#x = x;
-
-        this.draw();
     }
 
     get y() {
@@ -42,8 +40,6 @@ export default class Drawable {
 
     set y(y) {
         this.#y = y;
-
-        this.draw();
     }
 
     get width() {
@@ -52,8 +48,6 @@ export default class Drawable {
 
     set width(width) {
         this.#width = width;
-
-        this.draw();
     }
 
     get height() {
@@ -62,8 +56,6 @@ export default class Drawable {
 
     set height(height) {
         this.#height = height;
-
-        this.draw();
     }
 
     get color() {
@@ -72,7 +64,5 @@ export default class Drawable {
 
     set color(color) {
         this.#color = color;
-
-        this.draw();
     }
 }
