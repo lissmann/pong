@@ -27,19 +27,34 @@ export default class Pong {
     }
 
     loop() {
-        this.draw();
         requestAnimationFrame(this.loop.bind(this));
+        this.draw();
     }
 
     draw() {
         this.clear();
-        this.#ball.draw();
         this.#leftPaddle.draw();
         this.#rightPaddle.draw();
+        this.#ball.draw();
+        this.checkCollision();
     }
 
     clear() {
         this.#context.clearRect(0, 0, this.#context.canvas.width, this.#context.canvas.height);
+    }
+
+    checkCollision() {
+        if (this.#ball.x - this.#ball.width <= this.#leftPaddle.x + this.#leftPaddle.width
+            && this.#ball.y >= this.#leftPaddle.y
+            && this.#ball.y <= this.#leftPaddle.y + this.#leftPaddle.height
+        ) {
+            this.#ball.right();
+        } else if (this.#ball.x + this.#ball.width > this.#rightPaddle.x
+            && this.#ball.y >= this.#rightPaddle.y
+            && this.#ball.y <= this.#rightPaddle.y + this.#rightPaddle.height
+        ) {
+            this.#ball.left();
+        }
     }
 
     addListeners() {

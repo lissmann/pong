@@ -38,19 +38,43 @@ export default class Paddle extends Drawable {
         this.#direction = 0;
     }
 
+    get context() {
+        return super.context;
+    }
+
     set context(context) {
+    }
+
+    get x() {
+        return super.x;
     }
 
     set x(x) {
     }
 
+    get y() {
+        return super.y;
+    }
+
     set y(y) {
+    }
+
+    get width() {
+        return super.width;
     }
 
     set width(width) {
     }
 
+    get height() {
+        return super.height;
+    }
+
     set height(height) {
+    }
+
+    get color() {
+        return super.color;
     }
 
     set color(color) {

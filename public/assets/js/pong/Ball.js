@@ -76,13 +76,29 @@ export default class Ball extends Drawable {
         this.#directionY = 0;
     }
 
+    get context() {
+        return super.context;
+    }
+
     set context(context) {
+    }
+
+    get width() {
+        return super.width;
     }
 
     set width(width) {
     }
 
+    get height() {
+        return super.height;
+    }
+
     set height(height) {
+    }
+
+    get color() {
+        return super.color;
     }
 
     set color(color) {
