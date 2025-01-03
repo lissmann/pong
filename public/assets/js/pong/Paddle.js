@@ -52,13 +52,6 @@ export default class Paddle extends Drawable {
     set x(x) {
     }
 
-    get y() {
-        return super.y;
-    }
-
-    set y(y) {
-    }
-
     get width() {
         return super.width;
     }

@@ -50,7 +50,7 @@ export default class Ball extends Drawable {
         }
 
         super.context.beginPath();
-        super.context.arc(super.x, super.y, 10, 0, 2 * Math.PI);
+        super.context.arc(super.x, super.y, super.width, 0, 2 * Math.PI);
         super.context.fill();
         super.context.closePath();
     }
@@ -102,6 +102,13 @@ export default class Ball extends Drawable {
     }
 
     set color(color) {
+    }
+
+    get directionX() {
+        return this.#directionX;
+    }
+
+    set directionX(directionX) {
     }
 
     get speed() {

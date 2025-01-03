@@ -36,11 +36,26 @@ export default class Pong {
         this.#leftPaddle.draw();
         this.#rightPaddle.draw();
         this.#ball.draw();
+        this.moveRightPaddle();
         this.checkCollision();
     }
 
     clear() {
         this.#context.clearRect(0, 0, this.#context.canvas.width, this.#context.canvas.height);
+    }
+
+    moveRightPaddle() {
+        const rightPaddleCenter = this.#rightPaddle.y + this.#rightPaddle.height / 2;
+        const ballMovingToTheRight = this.#ball.directionX > 0;
+        const fastSpeed = 0.9 * this.#rightPaddle.speed;
+        const slowSpeed = 0.25 * this.#rightPaddle.speed;
+
+        if (rightPaddleCenter > this.#ball.y) {
+            this.#rightPaddle.y -= ballMovingToTheRight ? fastSpeed : slowSpeed;
+        }
+        if (rightPaddleCenter < this.#ball.y) {
+            this.#rightPaddle.y += ballMovingToTheRight ? fastSpeed : slowSpeed;
+        }
     }
 
     checkCollision() {
