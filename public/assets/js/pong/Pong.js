@@ -9,6 +9,8 @@ export default class Pong {
     #rightPaddle;
     #scoreboard;
 
+    #running = true;
+
     constructor() {
         const BOARD_WIDTH = 800;
         const BOARD_HEIGHT = 600;
@@ -31,7 +33,9 @@ export default class Pong {
 
     loop() {
         requestAnimationFrame(this.loop.bind(this));
-        this.draw();
+        if (this.#running) {
+            this.draw();
+        }
     }
 
     draw() {
@@ -80,6 +84,7 @@ export default class Pong {
     addListeners() {
         window.addEventListener("keydown", this.handleKeyDown.bind(this));
         window.addEventListener("keyup", this.handleKeyUp.bind(this));
+        this.#context.canvas.addEventListener("pong:score", this.handleScore.bind(this));
     }
 
     handleKeyDown(event) {
@@ -103,6 +108,19 @@ export default class Pong {
 
         if (event.key === "e" || event.key === "d") {
             this.#rightPaddle.idle();
+        }
+    }
+
+    handleScore(event) {
+        if (event.detail.player === 1) {
+            this.#scoreboard.increasePlayer1Score();
+        } else if (event.detail.player === 2) {
+            this.#scoreboard.increasePlayer2Score();
+        }
+
+        if (this.#scoreboard.player1Score === 5 || this.#scoreboard.player2Score === 5) {
+            this.#scoreboard.winner(event.detail.player);
+            this.#running = false;
         }
     }
 }

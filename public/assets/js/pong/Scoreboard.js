@@ -25,8 +25,24 @@ export default class Scoreboard extends Drawable {
         this.#player2Score++;
     }
 
+    winner(player) {
+        super.context.fillStyle = super.color;
+        super.context.textAlign = "center";
+        super.context.font = "30px sans-serif";
+        super.context.fillText(`Player ${player} wins`,
+            super.x, super.y + super.context.canvas.height / 2 - 50);
+    }
+
     reset() {
         this.#player1Score = 0;
         this.#player2Score = 0;
+    }
+
+    get player1Score() {
+        return this.#player1Score;
+    }
+
+    get player2Score() {
+        return this.#player2Score;
     }
 }

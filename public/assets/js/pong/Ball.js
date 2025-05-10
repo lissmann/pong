@@ -30,11 +30,11 @@ export default class Ball extends Drawable {
         } else if (leftEdge <= 0) {
             super.x = radius;
             this.right();
-            this.#scoreboard.increasePlayer2Score();
+            super.context.canvas.dispatchEvent(new CustomEvent('pong:score', {detail: {player: 2}}));
         } else if (rightEdge >= maximumRightEdge) {
             super.x = maximumRightEdge;
             this.left();
-            this.#scoreboard.increasePlayer1Score();
+            super.context.canvas.dispatchEvent(new CustomEvent('pong:score', {detail: {player: 1}}));
         }
 
         const newY = super.y + this.#directionY;
