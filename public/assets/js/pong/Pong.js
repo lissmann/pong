@@ -1,11 +1,13 @@
 import Paddle from "./Paddle.js"
 import Ball from "./Ball.js"
+import Scoreboard from "./Scoreboard.js";
 
 export default class Pong {
     #context;
     #ball;
     #leftPaddle;
     #rightPaddle;
+    #scoreboard;
 
     constructor() {
         const BOARD_WIDTH = 800;
@@ -21,6 +23,7 @@ export default class Pong {
         this.#ball = new Ball(this.#context, BOARD_WIDTH / 2, BOARD_HEIGHT / 2, PADDLE_WIDTH, COLOR, BALL_SPEED);
         this.#leftPaddle = new Paddle(this.#context, BOARD_MARGIN, BOARD_HEIGHT / 2 - PADDLE_HEIGHT / 2, PADDLE_WIDTH, PADDLE_HEIGHT, COLOR, PADDLE_SPEED);
         this.#rightPaddle = new Paddle(this.#context, BOARD_WIDTH - PADDLE_WIDTH - BOARD_MARGIN, BOARD_HEIGHT / 2 - PADDLE_HEIGHT / 2, PADDLE_WIDTH, PADDLE_HEIGHT, COLOR, PADDLE_SPEED);
+        this.#scoreboard = new Scoreboard(this.#context, BOARD_WIDTH / 2, 50);
 
         requestAnimationFrame(this.loop.bind(this));
         this.addListeners();
@@ -36,6 +39,7 @@ export default class Pong {
         this.#leftPaddle.draw();
         this.#rightPaddle.draw();
         this.#ball.draw();
+        this.#scoreboard.draw();
         this.moveRightPaddle();
         this.checkCollision();
     }
