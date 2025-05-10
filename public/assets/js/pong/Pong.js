@@ -49,15 +49,13 @@ export default class Pong {
     }
 
     moveRightPaddle() {
-        const rightPaddleCenter = this.#rightPaddle.y + this.#rightPaddle.height / 2;
         const ballMovingToTheRight = this.#ball.directionX > 0;
         const fastSpeed = 0.9 * this.#rightPaddle.speed;
         const slowSpeed = 0.25 * this.#rightPaddle.speed;
 
-        if (rightPaddleCenter > this.#ball.y) {
+        if (this.#rightPaddle.center > this.#ball.center) {
             this.#rightPaddle.y -= ballMovingToTheRight ? fastSpeed : slowSpeed;
-        }
-        if (rightPaddleCenter < this.#ball.y) {
+        } else if (this.#rightPaddle.center < this.#ball.center) {
             this.#rightPaddle.y += ballMovingToTheRight ? fastSpeed : slowSpeed;
         }
     }

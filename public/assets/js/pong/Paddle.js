@@ -102,4 +102,8 @@ export default class Paddle extends Drawable {
     get front() {
         return this.#isLeftPaddle ? this.x + this.width : this.x;
     }
+
+    get center() {
+        return super.y + super.height / 2;
+    }
 }
