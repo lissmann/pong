@@ -20,7 +20,7 @@ export default class Pong {
         const COLOR = "white";
 
         this.#context = document.getElementById("pong").getContext("2d");
-        this.#scoreboard = new Scoreboard(this.#context, BOARD_WIDTH / 2, 50);
+        this.#scoreboard = new Scoreboard(this.#context, BOARD_WIDTH / 2, 50, COLOR);
         this.#ball = new Ball(this.#context, BOARD_WIDTH / 2, BOARD_HEIGHT / 2, PADDLE_WIDTH, COLOR, BALL_SPEED, this.#scoreboard);
         this.#leftPaddle = new Paddle(this.#context, BOARD_MARGIN, BOARD_HEIGHT / 2 - PADDLE_HEIGHT / 2, PADDLE_WIDTH, PADDLE_HEIGHT, COLOR, PADDLE_SPEED);
         this.#rightPaddle = new Paddle(this.#context, BOARD_WIDTH - PADDLE_WIDTH - BOARD_MARGIN, BOARD_HEIGHT / 2 - PADDLE_HEIGHT / 2, PADDLE_WIDTH, PADDLE_HEIGHT, COLOR, PADDLE_SPEED);

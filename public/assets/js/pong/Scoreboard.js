@@ -4,14 +4,14 @@ export default class Scoreboard extends Drawable {
     #player1Score;
     #player2Score;
 
-    constructor(context, x, y) {
-        super(context, x, y, 0, 0, "blue");
+    constructor(context, x, y, color) {
+        super(context, x, y, 0, 0, color);
 
         this.reset();
     }
 
     draw() {
-        super.context.fillStyle = "white";
+        super.context.fillStyle = super.color;
         super.context.textAlign = "center";
         super.context.font = "30px sans-serif";
         super.context.fillText(`${this.#player1Score} : ${this.#player2Score}`, super.x, super.y);
