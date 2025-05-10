@@ -122,4 +122,12 @@ export default class Ball extends Drawable {
     set speed(speed) {
         this.#speed = speed;
     }
+
+    get center() {
+        return super.y;
+    }
+
+    get front() {
+        return this.#directionX < 0 ? super.x - super.width : super.x + super.width;
+    }
 }

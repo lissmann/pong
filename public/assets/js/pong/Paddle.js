@@ -3,12 +3,14 @@ import Drawable from "./Drawable.js";
 export default class Paddle extends Drawable {
     #direction;
     #speed;
+    #isLeftPaddle;
 
     constructor(context, x, y, width, height, color, speed) {
         super(context, x, y, width, height, color);
 
         this.#speed = speed;
         this.#direction = 0;
+        this.#isLeftPaddle = this.x <= this.context.canvas.width / 2;
     }
 
     draw() {
@@ -79,5 +81,25 @@ export default class Paddle extends Drawable {
 
     set speed(speed) {
         this.#speed = speed;
+    }
+
+    get top() {
+        return super.y;
+    }
+
+    get right() {
+        return super.x + super.width;
+    }
+
+    get bottom() {
+        return super.y + super.height;
+    }
+
+    get left() {
+        return super.x;
+    }
+
+    get front() {
+        return this.#isLeftPaddle ? this.x + this.width : this.x;
     }
 }

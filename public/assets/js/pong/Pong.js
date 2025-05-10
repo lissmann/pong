@@ -63,7 +63,7 @@ export default class Pong {
     }
 
     checkCollision() {
-         if (this.isBallCollidingWithPaddle(this.#ball, this.#leftPaddle)) {
+        if (this.isBallCollidingWithPaddle(this.#ball, this.#leftPaddle)) {
             this.#ball.right();
         } else if (this.isBallCollidingWithPaddle(this.#ball, this.#rightPaddle)) {
             this.#ball.left();
@@ -71,18 +71,10 @@ export default class Pong {
     }
 
     isBallCollidingWithPaddle(ball, paddle) {
-        const ballMovingLeft = ball.directionX < 0;
-        const ballFront = ballMovingLeft ? ball.x - ball.width : ball.x + ball.width;
-        const ballCenter = ball.y;
-
-        const paddleFront = ballMovingLeft ? paddle.x + paddle.width : paddle.x;
-        const paddleTop = paddle.y;
-        const paddleBottom = paddleTop + paddle.height;
-
         const ballCollidingWithPaddleHorizontally =
-            ballMovingLeft ? ballFront <= paddleFront : ballFront > paddleFront;
+            ball.directionX < 0 ? ball.front <= paddle.front : ball.front > paddle.front;
         const ballCollidingWithPaddleVertically =
-            ballCenter >= paddleTop && ballCenter <= paddleBottom;
+            ball.center >= paddle.top && ball.center <= paddle.bottom;
 
         return ballCollidingWithPaddleHorizontally && ballCollidingWithPaddleVertically;
     }
