@@ -4,13 +4,15 @@ export default class Ball extends Drawable {
     #directionX;
     #directionY;
     #speed;
+    #scoreboard;
 
-    constructor(context, x, y, diameter, color, speed) {
+    constructor(context, x, y, diameter, color, speed, scoreboard) {
         super(context, x, y, diameter / 2, diameter / 2, color);
 
         this.#speed = speed;
         this.#directionX = speed;
         this.#directionY = speed;
+        this.#scoreboard = scoreboard;
     }
 
     draw() {
@@ -28,9 +30,11 @@ export default class Ball extends Drawable {
         } else if (leftEdge <= 0) {
             super.x = radius;
             this.right();
+            this.#scoreboard.increasePlayer2Score();
         } else if (rightEdge >= maximumRightEdge) {
             super.x = maximumRightEdge;
             this.left();
+            this.#scoreboard.increasePlayer1Score();
         }
 
         const newY = super.y + this.#directionY;
