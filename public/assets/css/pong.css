@@ -1,11 +1,16 @@
+:root {
+    --pong-color: red;
+}
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0;
     height: 100vh;
+    background-color: var(--pong-color);
 }
 
 #pong {
-    background: black;
+    background-color: black;
 }

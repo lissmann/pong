@@ -1,3 +1,4 @@
+import Settings from "./Settings.js";
 import Paddle from "./Paddle.js"
 import Ball from "./Ball.js"
 import Scoreboard from "./Scoreboard.js";
@@ -12,23 +13,61 @@ export default class Pong {
     #running = true;
 
     constructor() {
-        const BOARD_WIDTH = 800;
-        const BOARD_HEIGHT = 600;
-        const BOARD_MARGIN = 20;
-        const PADDLE_WIDTH = 20;
-        const PADDLE_HEIGHT = 70;
-        const PADDLE_SPEED = 5;
-        const BALL_SPEED = 5;
-        const COLOR = "white";
-
-        this.#context = document.getElementById("pong").getContext("2d");
-        this.#scoreboard = new Scoreboard(this.#context, BOARD_WIDTH / 2, 50, COLOR);
-        this.#ball = new Ball(this.#context, BOARD_WIDTH / 2, BOARD_HEIGHT / 2, PADDLE_WIDTH, COLOR, BALL_SPEED, this.#scoreboard);
-        this.#leftPaddle = new Paddle(this.#context, BOARD_MARGIN, BOARD_HEIGHT / 2 - PADDLE_HEIGHT / 2, PADDLE_WIDTH, PADDLE_HEIGHT, COLOR, PADDLE_SPEED);
-        this.#rightPaddle = new Paddle(this.#context, BOARD_WIDTH - PADDLE_WIDTH - BOARD_MARGIN, BOARD_HEIGHT / 2 - PADDLE_HEIGHT / 2, PADDLE_WIDTH, PADDLE_HEIGHT, COLOR, PADDLE_SPEED);
-
+        this.initialize();
         requestAnimationFrame(this.loop.bind(this));
         this.addListeners();
+    }
+
+    initialize() {
+        this.initializeContext();
+        this.initializeScoreboard();
+        this.initializeBall();
+        this.initializePaddles();
+    }
+
+    initializeContext() {
+        this.#context = document.getElementById(Settings.ELEMENT_ID).getContext("2d");
+    }
+
+    initializeScoreboard() {
+        this.#scoreboard = new Scoreboard(
+            this.#context,
+            Settings.BOARD_WIDTH / 2,
+            50,
+            Settings.COLOR
+        );
+    }
+
+    initializeBall() {
+        this.#ball = new Ball(
+            this.#context,
+            Settings.BOARD_WIDTH / 2,
+            Settings.BOARD_HEIGHT / 2,
+            Settings.PADDLE_WIDTH,
+            Settings.COLOR,
+            Settings.BALL_SPEED,
+            this.#scoreboard
+        );
+    }
+
+    initializePaddles() {
+        this.#leftPaddle = new Paddle(
+            this.#context,
+            Settings.BOARD_MARGIN,
+            Settings.BOARD_HEIGHT / 2 - Settings.PADDLE_HEIGHT / 2,
+            Settings.PADDLE_WIDTH,
+            Settings.PADDLE_HEIGHT,
+            Settings.COLOR,
+            Settings.PADDLE_SPEED);
+
+        this.#rightPaddle = new Paddle(
+            this.#context,
+            Settings.BOARD_WIDTH - Settings.PADDLE_WIDTH - Settings.BOARD_MARGIN,
+            Settings.BOARD_HEIGHT / 2 - Settings.PADDLE_HEIGHT / 2,
+            Settings.PADDLE_WIDTH,
+            Settings.PADDLE_HEIGHT,
+            Settings.COLOR,
+            Settings.PADDLE_SPEED);
     }
 
     loop() {
