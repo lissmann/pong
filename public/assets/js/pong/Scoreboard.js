@@ -14,7 +14,11 @@ export default class Scoreboard extends Drawable {
         super.context.fillStyle = super.color;
         super.context.textAlign = "center";
         super.context.font = "30px sans-serif";
-        super.context.fillText(`${this.#player1Score} : ${this.#player2Score}`, super.x, super.y);
+        super.context.fillText(
+            `${this.#player1Score} : ${this.#player2Score}`,
+            super.x,
+            super.y
+        );
     }
 
     increasePlayer1Score() {
@@ -29,8 +33,11 @@ export default class Scoreboard extends Drawable {
         super.context.fillStyle = super.color;
         super.context.textAlign = "center";
         super.context.font = "30px sans-serif";
-        super.context.fillText(`Player ${player} wins`,
-            super.x, super.y + super.context.canvas.height / 2 - 50);
+        super.context.fillText(
+            `Player ${player} wins`,
+            super.x,
+            super.y + super.context.canvas.height / 2 - 50
+        );
     }
 
     reset() {

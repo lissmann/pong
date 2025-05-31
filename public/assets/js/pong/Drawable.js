@@ -15,8 +15,7 @@ export default class Drawable {
         this.#color = color;
     }
 
-    draw() {
-    }
+    draw() {}
 
     get context() {
         return this.#context;

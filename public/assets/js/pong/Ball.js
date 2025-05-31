@@ -4,15 +4,13 @@ export default class Ball extends Drawable {
     #directionX;
     #directionY;
     #speed;
-    #scoreboard;
 
-    constructor(context, x, y, diameter, color, speed, scoreboard) {
+    constructor(context, x, y, diameter, color, speed) {
         super(context, x, y, diameter / 2, diameter / 2, color);
 
         this.#speed = speed;
         this.#directionX = speed;
         this.#directionY = speed;
-        this.#scoreboard = scoreboard;
     }
 
     draw() {
@@ -30,11 +28,15 @@ export default class Ball extends Drawable {
         } else if (leftEdge <= 0) {
             super.x = radius;
             this.right();
-            super.context.canvas.dispatchEvent(new CustomEvent('pong:score', {detail: {player: 2}}));
+            super.context.canvas.dispatchEvent(
+                new CustomEvent("pong:score", { detail: { player: 2 } })
+            );
         } else if (rightEdge >= maximumRightEdge) {
             super.x = maximumRightEdge;
             this.left();
-            super.context.canvas.dispatchEvent(new CustomEvent('pong:score', {detail: {player: 1}}));
+            super.context.canvas.dispatchEvent(
+                new CustomEvent("pong:score", { detail: { player: 1 } })
+            );
         }
 
         const newY = super.y + this.#directionY;
@@ -84,36 +86,31 @@ export default class Ball extends Drawable {
         return super.context;
     }
 
-    set context(context) {
-    }
+    set context(context) {}
 
     get width() {
         return super.width;
     }
 
-    set width(width) {
-    }
+    set width(width) {}
 
     get height() {
         return super.height;
     }
 
-    set height(height) {
-    }
+    set height(height) {}
 
     get color() {
         return super.color;
     }
 
-    set color(color) {
-    }
+    set color(color) {}
 
     get directionX() {
         return this.#directionX;
     }
 
-    set directionX(directionX) {
-    }
+    set directionX(directionX) {}
 
     get speed() {
         return this.#speed;
@@ -128,6 +125,8 @@ export default class Ball extends Drawable {
     }
 
     get front() {
-        return this.#directionX < 0 ? super.x - super.width : super.x + super.width;
+        return this.#directionX < 0
+            ? super.x - super.width
+            : super.x + super.width;
     }
 }

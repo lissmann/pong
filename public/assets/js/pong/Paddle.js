@@ -16,12 +16,18 @@ export default class Paddle extends Drawable {
     draw() {
         super.context.fillStyle = super.color;
 
-        if (super.y + this.#direction >= 0
-            && super.y + this.#direction <= super.context.canvas.height - super.height) {
+        if (
+            super.y + this.#direction >= 0 &&
+            super.y + this.#direction <=
+                super.context.canvas.height - super.height
+        ) {
             super.y += this.#direction;
         } else if (super.y + this.#direction < 0) {
             super.y = 0;
-        } else if (super.y + this.#direction > super.context.canvas.height - super.height) {
+        } else if (
+            super.y + this.#direction >
+            super.context.canvas.height - super.height
+        ) {
             super.y = super.context.canvas.height - super.height;
         }
 
@@ -44,36 +50,31 @@ export default class Paddle extends Drawable {
         return super.context;
     }
 
-    set context(context) {
-    }
+    set context(context) {}
 
     get x() {
         return super.x;
     }
 
-    set x(x) {
-    }
+    set x(x) {}
 
     get width() {
         return super.width;
     }
 
-    set width(width) {
-    }
+    set width(width) {}
 
     get height() {
         return super.height;
     }
 
-    set height(height) {
-    }
+    set height(height) {}
 
     get color() {
         return super.color;
     }
 
-    set color(color) {
-    }
+    set color(color) {}
 
     get speed() {
         return this.#speed;

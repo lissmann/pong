@@ -1,6 +1,6 @@
 import Settings from "./Settings.js";
-import Paddle from "./Paddle.js"
-import Ball from "./Ball.js"
+import Paddle from "./Paddle.js";
+import Ball from "./Ball.js";
 import Scoreboard from "./Scoreboard.js";
 
 export default class Pong {
@@ -26,7 +26,9 @@ export default class Pong {
     }
 
     initializeContext() {
-        this.#context = document.getElementById(Settings.ELEMENT_ID).getContext("2d");
+        this.#context = document
+            .getElementById(Settings.ELEMENT_ID)
+            .getContext("2d");
     }
 
     initializeScoreboard() {
@@ -58,16 +60,20 @@ export default class Pong {
             Settings.PADDLE_WIDTH,
             Settings.PADDLE_HEIGHT,
             Settings.COLOR,
-            Settings.PADDLE_SPEED);
+            Settings.PADDLE_SPEED
+        );
 
         this.#rightPaddle = new Paddle(
             this.#context,
-            Settings.BOARD_WIDTH - Settings.PADDLE_WIDTH - Settings.BOARD_MARGIN,
+            Settings.BOARD_WIDTH -
+                Settings.PADDLE_WIDTH -
+                Settings.BOARD_MARGIN,
             Settings.BOARD_HEIGHT / 2 - Settings.PADDLE_HEIGHT / 2,
             Settings.PADDLE_WIDTH,
             Settings.PADDLE_HEIGHT,
             Settings.COLOR,
-            Settings.PADDLE_SPEED);
+            Settings.PADDLE_SPEED
+        );
     }
 
     loop() {
@@ -88,7 +94,12 @@ export default class Pong {
     }
 
     clear() {
-        this.#context.clearRect(0, 0, this.#context.canvas.width, this.#context.canvas.height);
+        this.#context.clearRect(
+            0,
+            0,
+            this.#context.canvas.width,
+            this.#context.canvas.height
+        );
     }
 
     moveRightPaddle() {
@@ -106,24 +117,34 @@ export default class Pong {
     checkCollision() {
         if (this.isBallCollidingWithPaddle(this.#ball, this.#leftPaddle)) {
             this.#ball.right();
-        } else if (this.isBallCollidingWithPaddle(this.#ball, this.#rightPaddle)) {
+        } else if (
+            this.isBallCollidingWithPaddle(this.#ball, this.#rightPaddle)
+        ) {
             this.#ball.left();
         }
     }
 
     isBallCollidingWithPaddle(ball, paddle) {
         const ballCollidingWithPaddleHorizontally =
-            ball.directionX < 0 ? ball.front <= paddle.front : ball.front > paddle.front;
+            ball.directionX < 0
+                ? ball.front <= paddle.front
+                : ball.front > paddle.front;
         const ballCollidingWithPaddleVertically =
             ball.center >= paddle.top && ball.center <= paddle.bottom;
 
-        return ballCollidingWithPaddleHorizontally && ballCollidingWithPaddleVertically;
+        return (
+            ballCollidingWithPaddleHorizontally &&
+            ballCollidingWithPaddleVertically
+        );
     }
 
     addListeners() {
         window.addEventListener("keydown", this.handleKeyDown.bind(this));
         window.addEventListener("keyup", this.handleKeyUp.bind(this));
-        this.#context.canvas.addEventListener("pong:score", this.handleScore.bind(this));
+        this.#context.canvas.addEventListener(
+            "pong:score",
+            this.handleScore.bind(this)
+        );
     }
 
     handleKeyDown(event) {
@@ -141,7 +162,12 @@ export default class Pong {
     }
 
     handleKeyUp(event) {
-        if (event.key === "ArrowUp" || event.key === "ArrowDown" || event.key === "w" || event.key === "s") {
+        if (
+            event.key === "ArrowUp" ||
+            event.key === "ArrowDown" ||
+            event.key === "w" ||
+            event.key === "s"
+        ) {
             this.#leftPaddle.idle();
         }
 
@@ -157,7 +183,10 @@ export default class Pong {
             this.#scoreboard.increasePlayer2Score();
         }
 
-        if (this.#scoreboard.player1Score === 5 || this.#scoreboard.player2Score === 5) {
+        if (
+            this.#scoreboard.player1Score === 5 ||
+            this.#scoreboard.player2Score === 5
+        ) {
             this.#scoreboard.winner(event.detail.player);
             this.#running = false;
         }

@@ -1,3 +1,3 @@
-import Pong from "./pong/Pong.js"
+import Pong from "./pong/Pong.js";
 
 new Pong();
