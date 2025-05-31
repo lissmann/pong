@@ -2,6 +2,7 @@ import Settings from "./Settings.js";
 import Paddle from "./Paddle.js";
 import Ball from "./Ball.js";
 import Scoreboard from "./Scoreboard.js";
+import Message from "./Message.js";
 
 export default class Pong {
     #context;
@@ -9,6 +10,7 @@ export default class Pong {
     #leftPaddle;
     #rightPaddle;
     #scoreboard;
+    #message;
 
     #running = true;
 
@@ -23,6 +25,7 @@ export default class Pong {
         this.initializeScoreboard();
         this.initializeBall();
         this.initializePaddles();
+        this.initializeMessage();
     }
 
     initializeContext() {
@@ -73,6 +76,15 @@ export default class Pong {
             Settings.PADDLE_HEIGHT,
             Settings.COLOR,
             Settings.PADDLE_SPEED
+        );
+    }
+
+    initializeMessage() {
+        this.#message = new Message(
+            this.#context,
+            Settings.BOARD_WIDTH / 2,
+            Settings.BOARD_HEIGHT / 2,
+            Settings.COLOR
         );
     }
 
@@ -187,7 +199,7 @@ export default class Pong {
             this.#scoreboard.player1Score === 5 ||
             this.#scoreboard.player2Score === 5
         ) {
-            this.#scoreboard.winner(event.detail.player);
+            this.#message.winner(event.detail.player);
             this.#running = false;
         }
     }
