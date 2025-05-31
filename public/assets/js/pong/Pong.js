@@ -13,11 +13,15 @@ export default class Pong {
     #message;
 
     #running = true;
+    #sequence = 1;
 
     constructor() {
         this.initialize();
         requestAnimationFrame(this.loop.bind(this));
         this.addListeners();
+
+        this.#running = false;
+        this.#message.play();
     }
 
     initialize() {
@@ -160,6 +164,13 @@ export default class Pong {
     }
 
     handleKeyDown(event) {
+        if (!this.#running && this.#sequence === 1) {
+            this.#running = true;
+            this.#sequence++;
+
+            return;
+        }
+
         if (event.key === "ArrowUp" || event.key === "w") {
             this.#leftPaddle.up();
         } else if (event.key === "ArrowDown" || event.key === "s") {
