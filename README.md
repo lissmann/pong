@@ -4,4 +4,6 @@
 
 The legendary Pong game in object-oriented JavaScript.
 
-*Work in progress... Yet one level and a cheap computer player.*
+See a live preview on https://pong.lissmann.net/
+
+_Work in progress... Yet one level and a cheap computer player._
