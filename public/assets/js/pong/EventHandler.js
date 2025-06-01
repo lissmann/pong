@@ -34,6 +34,7 @@ export default class EventHandler {
         } else if (State.is(State.OUTRO) && event.key === " ") {
             this.#scoreboard.reset();
             State.next();
+            this.#ball.throwIn();
 
             return;
         }
