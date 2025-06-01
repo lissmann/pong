@@ -1,5 +1,5 @@
 :root {
-    --pong-color: #ccd5ae;
+    --pong-color: #e0e0e0;
 }
 
 body {
@@ -8,9 +8,9 @@ body {
     align-items: center;
     margin: 0;
     height: 100vh;
-    background-color: var(--pong-color);
+    background-color: black;
 }
 
 #pong {
-    background-color: black;
+    border: 10px solid var(--pong-color);
 }
