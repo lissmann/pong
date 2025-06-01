@@ -1,4 +1,4 @@
-import Settings from "./Settings.js";
+import Settings from "../enumerations/Settings.js";
 import Scoreboard from "./Scoreboard.js";
 import Ball from "./Ball.js";
 import Paddle from "./Paddle.js";

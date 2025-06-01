@@ -1,4 +1,4 @@
-import State from "./State.js";
+import State from "../enumerations/State.js";
 
 export default class EventHandler {
     #context;

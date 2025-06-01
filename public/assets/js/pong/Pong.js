@@ -1,6 +1,6 @@
-import Factory from "./Factory.js";
-import EventHandler from "./EventHandler.js";
-import State from "./State.js";
+import Factory from "./drawables/Factory.js";
+import EventHandler from "./events/EventHandler.js";
+import State from "./enumerations/State.js";
 
 export default class Pong {
     #context;
