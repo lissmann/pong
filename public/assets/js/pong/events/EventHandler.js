@@ -80,6 +80,10 @@ export default class EventHandler {
         ) {
             State.next();
             this.#message.winner(event.detail.player);
+
+            return;
         }
+
+        State.score();
     };
 }

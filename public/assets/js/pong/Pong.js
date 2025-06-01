@@ -42,6 +42,10 @@ export default class Pong {
         requestAnimationFrame(this.loop.bind(this));
         if (State.is(State.IN_GAME)) {
             this.draw();
+        } else if (State.is(State.SCORE)) {
+            State.next();
+            this.#ball.throwIn();
+            this.draw();
         } else if (State.is(State.INTRO)) {
             this.clear();
             this.#message.play();
