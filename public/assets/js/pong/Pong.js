@@ -1,8 +1,4 @@
-import Settings from "./Settings.js";
-import Paddle from "./Paddle.js";
-import Ball from "./Ball.js";
-import Scoreboard from "./Scoreboard.js";
-import Message from "./Message.js";
+import Factory from "./Factory.js";
 
 export default class Pong {
     #context;
@@ -25,71 +21,14 @@ export default class Pong {
     }
 
     initialize() {
-        this.initializeContext();
-        this.initializeScoreboard();
-        this.initializeBall();
-        this.initializePaddles();
-        this.initializeMessage();
-    }
+        const factory = new Factory();
 
-    initializeContext() {
-        this.#context = document
-            .getElementById(Settings.ELEMENT_ID)
-            .getContext("2d");
-    }
-
-    initializeScoreboard() {
-        this.#scoreboard = new Scoreboard(
-            this.#context,
-            Settings.BOARD_WIDTH / 2,
-            50,
-            Settings.COLOR
-        );
-    }
-
-    initializeBall() {
-        this.#ball = new Ball(
-            this.#context,
-            Settings.BOARD_WIDTH / 2,
-            Settings.BOARD_HEIGHT / 2,
-            Settings.PADDLE_WIDTH,
-            Settings.COLOR,
-            Settings.BALL_SPEED,
-            this.#scoreboard
-        );
-    }
-
-    initializePaddles() {
-        this.#leftPaddle = new Paddle(
-            this.#context,
-            Settings.BOARD_MARGIN,
-            Settings.BOARD_HEIGHT / 2 - Settings.PADDLE_HEIGHT / 2,
-            Settings.PADDLE_WIDTH,
-            Settings.PADDLE_HEIGHT,
-            Settings.COLOR,
-            Settings.PADDLE_SPEED
-        );
-
-        this.#rightPaddle = new Paddle(
-            this.#context,
-            Settings.BOARD_WIDTH -
-                Settings.PADDLE_WIDTH -
-                Settings.BOARD_MARGIN,
-            Settings.BOARD_HEIGHT / 2 - Settings.PADDLE_HEIGHT / 2,
-            Settings.PADDLE_WIDTH,
-            Settings.PADDLE_HEIGHT,
-            Settings.COLOR,
-            Settings.PADDLE_SPEED
-        );
-    }
-
-    initializeMessage() {
-        this.#message = new Message(
-            this.#context,
-            Settings.BOARD_WIDTH / 2,
-            Settings.BOARD_HEIGHT / 2,
-            Settings.COLOR
-        );
+        this.#context = factory.context;
+        this.#scoreboard = factory.createScoreboard();
+        this.#ball = factory.createBall(this.#scoreboard);
+        this.#leftPaddle = factory.createLeftPaddle();
+        this.#rightPaddle = factory.createRightPaddle();
+        this.#message = factory.createMessage();
     }
 
     loop() {
