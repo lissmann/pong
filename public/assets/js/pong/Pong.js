@@ -1,4 +1,5 @@
 import Factory from "./Factory.js";
+import EventHandler from "./EventHandler.js";
 
 export default class Pong {
     #context;
@@ -8,13 +9,15 @@ export default class Pong {
     #scoreboard;
     #message;
 
+    #eventHandler;
+
     #running = true;
     #sequence = 1;
 
     constructor() {
         this.initialize();
         requestAnimationFrame(this.loop.bind(this));
-        this.addListeners();
+        this.#eventHandler.addListeners();
 
         this.#running = false;
         this.#message.play();
@@ -29,6 +32,23 @@ export default class Pong {
         this.#leftPaddle = factory.createLeftPaddle();
         this.#rightPaddle = factory.createRightPaddle();
         this.#message = factory.createMessage();
+
+        this.#eventHandler = new EventHandler(
+            this.#context,
+            this.#leftPaddle,
+            this.#rightPaddle,
+            this.#scoreboard,
+            this.#message,
+            () => this.#running,
+            () => this.#sequence,
+            () => {
+                this.#running = true;
+                this.#sequence++;
+            },
+            () => {
+                this.#running = false;
+            }
+        );
     }
 
     loop() {
@@ -91,66 +111,5 @@ export default class Pong {
             ballCollidingWithPaddleHorizontally &&
             ballCollidingWithPaddleVertically
         );
-    }
-
-    addListeners() {
-        window.addEventListener("keydown", this.handleKeyDown.bind(this));
-        window.addEventListener("keyup", this.handleKeyUp.bind(this));
-        this.#context.canvas.addEventListener(
-            "pong:score",
-            this.handleScore.bind(this)
-        );
-    }
-
-    handleKeyDown(event) {
-        if (!this.#running && this.#sequence === 1) {
-            this.#running = true;
-            this.#sequence++;
-
-            return;
-        }
-
-        if (event.key === "ArrowUp" || event.key === "w") {
-            this.#leftPaddle.up();
-        } else if (event.key === "ArrowDown" || event.key === "s") {
-            this.#leftPaddle.down();
-        }
-
-        if (event.key === "e") {
-            this.#rightPaddle.up();
-        } else if (event.key === "d") {
-            this.#rightPaddle.down();
-        }
-    }
-
-    handleKeyUp(event) {
-        if (
-            event.key === "ArrowUp" ||
-            event.key === "ArrowDown" ||
-            event.key === "w" ||
-            event.key === "s"
-        ) {
-            this.#leftPaddle.idle();
-        }
-
-        if (event.key === "e" || event.key === "d") {
-            this.#rightPaddle.idle();
-        }
-    }
-
-    handleScore(event) {
-        if (event.detail.player === 1) {
-            this.#scoreboard.increasePlayer1Score();
-        } else if (event.detail.player === 2) {
-            this.#scoreboard.increasePlayer2Score();
-        }
-
-        if (
-            this.#scoreboard.player1Score === 5 ||
-            this.#scoreboard.player2Score === 5
-        ) {
-            this.#message.winner(event.detail.player);
-            this.#running = false;
-        }
     }
 }
