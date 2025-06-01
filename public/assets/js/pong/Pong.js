@@ -1,5 +1,6 @@
 import Factory from "./Factory.js";
 import EventHandler from "./EventHandler.js";
+import State from "./State.js";
 
 export default class Pong {
     #context;
@@ -11,16 +12,10 @@ export default class Pong {
 
     #eventHandler;
 
-    #running = true;
-    #sequence = 1;
-
     constructor() {
         this.initialize();
         requestAnimationFrame(this.loop.bind(this));
         this.#eventHandler.addListeners();
-
-        this.#running = false;
-        this.#message.play();
     }
 
     initialize() {
@@ -38,23 +33,17 @@ export default class Pong {
             this.#leftPaddle,
             this.#rightPaddle,
             this.#scoreboard,
-            this.#message,
-            () => this.#running,
-            () => this.#sequence,
-            () => {
-                this.#running = true;
-                this.#sequence++;
-            },
-            () => {
-                this.#running = false;
-            }
+            this.#message
         );
     }
 
     loop() {
         requestAnimationFrame(this.loop.bind(this));
-        if (this.#running) {
+        if (State.is(State.IN_GAME)) {
             this.draw();
+        } else if (State.is(State.INTRO)) {
+            this.clear();
+            this.#message.play();
         }
     }
 

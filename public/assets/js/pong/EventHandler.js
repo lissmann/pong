@@ -1,3 +1,5 @@
+import State from "./State.js";
+
 export default class EventHandler {
     #context;
     #leftPaddle;
@@ -5,32 +7,12 @@ export default class EventHandler {
     #scoreboard;
     #message;
 
-    #isGameRunning;
-    #getGameState;
-    #startGame;
-    #stopGame;
-
-    constructor(
-        context,
-        leftPaddle,
-        rightPaddle,
-        scoreboard,
-        message,
-        isGameRunning,
-        getGameState,
-        startGame,
-        stopGame
-    ) {
+    constructor(context, leftPaddle, rightPaddle, scoreboard, message) {
         this.#context = context;
         this.#leftPaddle = leftPaddle;
         this.#rightPaddle = rightPaddle;
         this.#scoreboard = scoreboard;
         this.#message = message;
-
-        this.#isGameRunning = isGameRunning;
-        this.#getGameState = getGameState;
-        this.#startGame = startGame;
-        this.#stopGame = stopGame;
 
         this.addListeners();
     }
@@ -42,8 +24,13 @@ export default class EventHandler {
     }
 
     handleKeyDown = (event) => {
-        if (!this.#isGameRunning() && this.#getGameState() === 1) {
-            this.#startGame();
+        if (State.is(State.INTRO)) {
+            State.next();
+
+            return;
+        } else if (State.is(State.OUTRO) && event.key === " ") {
+            this.#scoreboard.reset();
+            State.next();
 
             return;
         }
@@ -87,7 +74,7 @@ export default class EventHandler {
             this.#scoreboard.player1Score === 5 ||
             this.#scoreboard.player2Score === 5
         ) {
-            this.#stopGame();
+            State.next();
             this.#message.winner(event.detail.player);
         }
     };
