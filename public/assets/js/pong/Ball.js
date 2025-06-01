@@ -82,6 +82,26 @@ export default class Ball extends Drawable {
         this.#directionY = 0;
     }
 
+    throwIn() {
+        const random1 = Math.round(Math.random());
+        const random2 = Math.round(Math.random());
+
+        this.x = super.context.canvas.width / 2;
+        this.y = super.context.canvas.height / 2;
+
+        if (random1) {
+            this.left();
+        } else {
+            this.right();
+        }
+
+        if (random2) {
+            this.up();
+        } else {
+            this.down();
+        }
+    }
+
     get context() {
         return super.context;
     }

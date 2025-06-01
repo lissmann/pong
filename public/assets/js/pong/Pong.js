@@ -30,6 +30,7 @@ export default class Pong {
 
         this.#eventHandler = new EventHandler(
             this.#context,
+            this.#ball,
             this.#leftPaddle,
             this.#rightPaddle,
             this.#scoreboard,

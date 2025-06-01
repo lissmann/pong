@@ -2,13 +2,15 @@ import State from "./State.js";
 
 export default class EventHandler {
     #context;
+    #ball;
     #leftPaddle;
     #rightPaddle;
     #scoreboard;
     #message;
 
-    constructor(context, leftPaddle, rightPaddle, scoreboard, message) {
+    constructor(context, ball, leftPaddle, rightPaddle, scoreboard, message) {
         this.#context = context;
+        this.#ball = ball;
         this.#leftPaddle = leftPaddle;
         this.#rightPaddle = rightPaddle;
         this.#scoreboard = scoreboard;
@@ -26,6 +28,7 @@ export default class EventHandler {
     handleKeyDown = (event) => {
         if (State.is(State.INTRO)) {
             State.next();
+            this.#ball.throwIn();
 
             return;
         } else if (State.is(State.OUTRO) && event.key === " ") {
